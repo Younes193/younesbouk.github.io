@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="utf-8">
+        <title>Accueil</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+
+
+    <body>
+
+
+        <header>
+        <div>
+            <h1>mini game</h1>
+            <h2>mes jeux video </h2>
+ </header>
+
+
+
+
+            
+
+
+
+    
+
+
+<section><h1>Devine le nombre 🎯</h1>
+
+<p>Entre 1 et 100</p>
+<input id="guess" type="number">
+<button onclick="check()">Valider</button>
+
+<p id="result"></p>
+
+<script>
+let secret = Math.floor(Math.random()*100)+1;
+
+function check(){
+  let g = document.getElementById("guess").value;
+  let r = document.getElementById("result");
+
+  if(g == secret){
+    r.innerText = "Bravo ! 🎉";
+  } else if(g < secret){
+    r.innerText = "Trop petit ⬆️";
+  } else {
+    r.innerText = "Trop grand ⬇️";
+  }
+}
+</script>
+</section>
+
+<section>
+    <h1>Tape le chiffre 🔢</h1>
+
+<p id="info">Temps: 10 | Score: 0</p>
+<p id="number"></p>
+
+<button onclick="check(1)">1</button>
+<button onclick="check(2)">2</button>
+<button onclick="check(3)">3</button>
+
+<br><br>
+<button onclick="start()">Commencer</button>
+
+<script>
+let n,score=0,time=10,game;
+
+function start(){
+  score=0; time=10;
+  next();
+  update();
+
+  game=setInterval(()=>{
+    time--;
+    update();
+    if(time<=0){
+      clearInterval(game);
+      document.getElementById("info").innerText="FIN ! Score: "+score;
+      document.getElementById("number").innerText="";
+    }
+  },1000);
+}
+
+function next(){
+  n=Math.floor(Math.random()*3)+1;
+  document.getElementById("number").innerText="Clique sur : "+n;
+}
+
+function check(x){
+  if(time<=0) return;
+  if(x===n) score++;
+  next();
+}
+
+function update(){
+  document.getElementById("info").innerText="Temps: "+time+" | Score: "+score;
+}
+</script>
+</section>
+
+
+
+
+
+
+
+<section>
+    <h1>Attrape le carré 🟥</h1>
+
+<p id="infoBox">Temps: 15 | Score: 0</p>
+
+<div id="boxGame" style="width:50px;height:50px;background:red;position:absolute;display:none;cursor:pointer;"></div>
+
+<br><br>
+<button onclick="startBoxGame()">Commencer</button>
+
+<script>
+function startBoxGame(){
+  let scoreBox = 0;
+  let timeBox = 15;
+  let gameBox;
+
+  const box = document.getElementById("boxGame");
+  const info = document.getElementById("infoBox");
+
+  // Affiche le carré et initialise position
+  box.style.display = "block";
+  box.style.top = Math.random()*80 + "%";
+  box.style.left = Math.random()*80 + "%";
+  info.innerText = "Temps: "+timeBox+" | Score: "+scoreBox;
+
+  // Chrono
+  gameBox = setInterval(()=>{
+    timeBox--;
+    info.innerText = "Temps: "+timeBox+" | Score: "+scoreBox;
+    if(timeBox <= 0){
+      clearInterval(gameBox);
+      box.style.display = "none";
+      info.innerText = "FIN ! Score: "+scoreBox;
+    }
+  },1000);
+
+  // Clic sur le carré
+  box.onclick = ()=>{
+    scoreBox++;
+    info.innerText = "Temps: "+timeBox+" | Score: "+scoreBox;
+    box.style.top = Math.random()*80 + "%";
+    box.style.left = Math.random()*80 + "%";
+  };
+}
+</script>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+<nav>
+  <a href="index.html">Accueil</a>
+</nav>
+
+</body>
+
+</html>
